@@ -17,13 +17,14 @@
                HorizontalAlignment="Center" Margin="10" Grid.Row="0"/>
         
         <DataGrid x:Name="BooksDataGrid" AutoGenerateColumns="False" 
-                  IsReadOnly="True" Margin="5" Grid.Row="1">
+                  IsReadOnly="True" Margin="5" Grid.Row="1"
+                  SelectionMode="Single" SelectionChanged="BooksDataGrid_Select">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="ISBN" Binding="{Binding Isbn}" Width="Auto"/>
                 <DataGridTextColumn Header="Title" Binding="{Binding Title}" Width="Auto"/>
                 <DataGridTextColumn Header="Author" Binding="{Binding Author}" Width="Auto"/>
                 
-                <DataGridTemplateColumn Header="Description" Width="*">
+                <DataGridTemplateColumn Header="Description" Width="Auto">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
                             <TextBlock Text="{Binding Description}" TextWrapping="Wrap" MaxWidth="200"/>
@@ -31,25 +32,21 @@
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
                 
-                <DataGridTemplateColumn Header="Cover Image" Width="Auto">
-                    <DataGridTemplateColumn.CellTemplate>
-                        <DataTemplate>
-                            
-                        </DataTemplate>
-                    </DataGridTemplateColumn.CellTemplate>
-                </DataGridTemplateColumn>
+                
             </DataGrid.Columns>
         </DataGrid>
 
         <Grid Grid.Row="2" Margin="10">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="200"/>
+                <ColumnDefinition Width="200"/>
+                <ColumnDefinition Width="200"/>
+                <ColumnDefinition Width="200"/>
             </Grid.ColumnDefinitions>
             <Button Content="Add Book" Click="AddBookButton_Click" Margin="5" Grid.Column="0"/>
             <Button Content="Edit Book" Click="EditBookButton_Click" Margin="5" Grid.Column="1"/>
             <Button Content="Delete Book" Click="DeleteBookButton_Click" Margin="5" Grid.Column="2"/>
+            <Button Content="Load Book" Click="LoadBookButton_Click" Margin="5" Grid.Column="3"/>
         </Grid>
     </Grid>
 </Window>

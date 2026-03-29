@@ -4,9 +4,6 @@ using System.Data;
 using System.Windows;
 using BooksFrontend.Models;
 using Microsoft.EntityFrameworkCore;
-using System.Windows;
-
-
 
 namespace BooksFrontend
 {
@@ -28,14 +25,13 @@ namespace BooksFrontend
             services.AddSingleton<MainWindow>();
 
             provider = services.BuildServiceProvider();
-
-
         }
-        protected void OnStartup(object sender, StartupEventArgs e)
+        
+        protected override void OnStartup(StartupEventArgs e)
         {
+            base.OnStartup(e);
             var mainWindow = provider.GetService<MainWindow>();
-            mainWindow.Show();
-           
+            mainWindow?.Show();
         }
-
-    } }
+    }
+}
