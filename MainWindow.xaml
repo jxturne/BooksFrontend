@@ -21,7 +21,7 @@
                   SelectionMode="Single" SelectionChanged="BooksDataGrid_Select">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="ISBN" Binding="{Binding Isbn}" Width="Auto"/>
-                <DataGridTextColumn Header="Title" Binding="{Binding Title}" Width="Auto"/>
+                <DataGridTextColumn Header="Title" Binding="{Binding Name}" Width="200"/>
                 <DataGridTextColumn Header="Author" Binding="{Binding Author}" Width="Auto"/>
                 
                 <DataGridTemplateColumn Header="Description" Width="Auto">

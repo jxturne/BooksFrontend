@@ -2,8 +2,10 @@
 using System.Windows;
 using System.Windows.Controls;
 using BooksFrontend.Models;
-using System.Net.Http;
+using System.Net.Http.Json;
 using System;
+using System.Collections.Generic;
+using System.Net.Http;
 
 namespace BooksFrontend
 {
@@ -20,21 +22,31 @@ namespace BooksFrontend
         {
             InitializeComponent();
             this.crud = crud;
-            booksApiClient.BaseAddress = new Uri("http://localhost:5038/api/Books");
+            booksApiClient.BaseAddress = new Uri("http://localhost:5038");
             LoadBooks();
         }
 
-        private void LoadBooks()
+        private async void LoadBooks()
         {
             try
             {
-                var books = crud.GetBook();
-                BooksDataGrid.ItemsSource = books;
+                var response = await booksApiClient.GetAsync("http://localhost:5038/api/Books");
                 
-                if (books.Count == 0)
+                if (response.IsSuccessStatusCode)
                 {
-                    MessageBox.Show("No books found. Let's add some now!", 
-                        "Empty Database", MessageBoxButton.OK, MessageBoxImage.Information);
+                    var books = await response.Content.ReadFromJsonAsync<List<Book>>();
+                    BooksDataGrid.ItemsSource = books;
+                    
+                    if (books == null || books.Count == 0)
+                    {
+                        MessageBox.Show("No books found. Let's add some now!", 
+                            "Empty Database", MessageBoxButton.OK, MessageBoxImage.Information);
+                    }
+                }
+                else
+                {
+                    MessageBox.Show($"API returned status code: {response.StatusCode}", 
+                        "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
             }
             catch (Exception ex)
